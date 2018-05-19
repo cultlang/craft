@@ -9,12 +9,26 @@
 using namespace craft;
 using namespace craft::lisp;
 
+void ensure_dlls()
+{
+	auto target = path::dir(path::executable_path());
+	auto files = path::list_files(target);
+	for (auto f : files)
+	{
+		auto ext = f.substr(f.find('.') + 1);
+		if (ext == "dll" || ext == "so" || ext == "dylib")
+		{
+			craft::types::load_dll(path::join(target, f));
+		}
+	}
+}
 
 
 int main(int argc, char** argv)
 {
 	craft::types::boot();
-
+	ensure_dlls();
+	Sleep(2000);
 	if (argc != 1)
 	{
 		instance<Environment> global_env = instance<Environment>::make(spdlog::stdout_color_mt("environment"));
