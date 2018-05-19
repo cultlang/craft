@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 		std::string f;
 		try
 		{
-			f = fs::read<std::string>(path::normalize(argv[1]), fs::string_read).get();
+			f = path::normalize(argv[1]);
 		}
 		catch (...)
 		{
