@@ -28,7 +28,6 @@ int main(int argc, char** argv)
 {
 	craft::types::boot();
 	ensure_dlls();
-	Sleep(2000);
 	if (argc != 1)
 	{
 		instance<Environment> global_env = instance<Environment>::make(spdlog::stdout_color_mt("environment"));
@@ -44,7 +43,7 @@ int main(int argc, char** argv)
 		}
 		try
 		{
-			auto live_module = ns->requireModule(fmt::format("file:{0}", f));
+			auto live_module = ns->requireModule(instance<>(), fmt::format("file:{0}", f));
 			live_module->initialize();
 		}
 		catch (stdext::exception e)
