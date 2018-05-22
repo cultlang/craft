@@ -30,12 +30,17 @@ int main(int argc, char** argv)
 	ensure_dlls();
 	if (argc != 1)
 	{
-		instance<Environment> global_env = instance<Environment>::make(spdlog::stdout_color_mt("environment"));
+		std::vector<instance<std::string>> _argv;
+		for (auto i = 0; i < argc; i++)
+		{
+			_argv.push_back(instance<std::string>::make(argv[i]));
+		}
+		instance<Environment> global_env = instance<Environment>::make(spdlog::stdout_color_mt("environment"), _argv);
 		instance<Namespace> ns = global_env->ns_user;
 		std::string f;
 		try
 		{
-			f = path::normalize(argv[1]);
+			f = argv[1];
 		}
 		catch (...)
 		{
