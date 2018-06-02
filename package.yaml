@@ -16,6 +16,7 @@ dependencies:
   - Uv
   - Git
   - Zmq
+  - Curses
   
 
 include-directories: []
